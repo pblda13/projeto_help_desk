@@ -11,6 +11,8 @@ import com.pamela.helpdesk.domain.Tecnico;
 import com.pamela.helpdesk.domain.dto.TecnicoDTO;
 import com.pamela.helpdesk.services.tecnicoService;
 
+import javassist.tools.rmi.ObjectNotFoundException;
+
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResource {
@@ -19,8 +21,8 @@ public class TecnicoResource {
 	private tecnicoService service;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){	
-		Tecnico obj = this.service.findById(id);
+	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) throws ObjectNotFoundException{	
+		Tecnico obj = service.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
